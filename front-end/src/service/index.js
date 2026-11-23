@@ -4,6 +4,7 @@ import * as TimetableService from "./TimetableService"
 import * as SemesterService from "./SemesterService"
 import * as CourseService from "./CourseService"
 import * as StudentService from "./StudentService"
+import * as CoursePlanService from "./CoursePlanService"
 
 const api = axios.create({
     baseURL: config.default.BACKEND_URL,
@@ -15,4 +16,4 @@ const api = axios.create({
 
 export default api
 
-export { TimetableService, SemesterService, CourseService, StudentService }
+export { TimetableService, SemesterService, CourseService, StudentService, CoursePlanService }

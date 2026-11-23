@@ -7,6 +7,7 @@ import {
 import { Alert } from "@material-ui/lab";
 import cogoToast from "cogo-toast";
 import { StudentService } from "../../service";
+import PageNav from "../PageNav/PageNav";
 import "./StudentsPage.scss";
 
 const errorText = (err) => {
@@ -101,7 +102,10 @@ const StudentsPage = () => {
     return (
         <div className="students-page">
             <div className="students-container">
-                <Typography variant="h4">Öğrenci Yönetimi</Typography>
+                <div className="page-header">
+                    <Typography variant="h4" component="h1">Öğrenci Yönetimi</Typography>
+                    <PageNav/>
+                </div>
 
                 <Paper className="section-card">
                     <Typography variant="h6">Öğrenci Verisi İçe Aktar</Typography>

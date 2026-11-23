@@ -4,6 +4,7 @@ import './index.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
 import StudentsPage from './components/StudentsPage/StudentsPage';
+import CurriculaPage from './components/CurriculaPage/CurriculaPage';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -12,6 +13,7 @@ ReactDOM.render(
           <Routes>
               <Route path="/" element={<App/>}/>
               <Route path="/students" element={<StudentsPage/>}/>
+              <Route path="/curricula" element={<CurriculaPage/>}/>
           </Routes>
       </BrowserRouter>
   </React.StrictMode>,
