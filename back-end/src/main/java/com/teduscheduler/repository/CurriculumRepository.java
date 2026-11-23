@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface CurriculumRepository extends JpaRepository<Curriculum, Long> {
 
-    @Query("select c, (select count(s) from Student s where s.curriculum = c) from Curriculum c order by c.program, c.version")
+    @Query("select c, (select count(sp) from StudentProgram sp where sp.curriculum = c) from Curriculum c order by c.program, c.version")
     List<Object[]> findAllWithStudentCount();
 }

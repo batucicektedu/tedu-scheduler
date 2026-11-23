@@ -18,6 +18,21 @@ const errorText = (err) => {
     return "Hata: " + res.status
 }
 
+const TYPE_LABELS = { DOUBLE_MAJOR: "ÇAP", MINOR: "Yandal", OTHER: "Diğer" }
+
+const curriculumLabel = (c) => (c ? `${c.catalogName || ""} ${c.version || ""}`.trim() : "")
+
+// Programme records of a student, falling back to the student's own (primary programme) fields.
+const programsOf = (s) => {
+    if (s.programs && s.programs.length > 0) return s.programs
+    return [{
+        id: null, program: s.program, programType: "MAIN", classLevel: s.classLevel,
+        curriculum: s.curriculum, academicStatus: s.academicStatus,
+    }]
+}
+
+const cellValue = (v, multi) => (v || (multi ? "—" : ""))
+
 const StudentsPage = () => {
     const [key, setKey] = useState("")
     const [file, setFile] = useState(null)
@@ -109,10 +124,15 @@ const StudentsPage = () => {
                             <Alert severity="success">İçe aktarma tamamlandı</Alert>
                             <div className="summary-chips">
                                 <Chip label={`Toplam satır: ${summary.totalRows}`}/>
-                                <Chip label={`Yeni: ${summary.created}`}/>
-                                <Chip label={`Güncellenen: ${summary.updated}`}/>
+                                <Chip label={`Yeni öğrenci: ${summary.created}`}/>
+                                <Chip label={`Güncellenen öğrenci: ${summary.updated}`}/>
+                                <Chip label={`Yeni program kaydı: ${summary.programsCreated || 0}`}/>
+                                <Chip label={`Güncellenen program kaydı: ${summary.programsUpdated || 0}`}/>
+                                <Chip label={`Kaldırılan program kaydı: ${summary.programsRemoved || 0}`}/>
+                                <Chip label={`Birden çok programlı öğrenci: ${summary.multiProgramStudents || 0}`}/>
                                 <Chip label={`Atlanan: ${summary.skipped}`}/>
                                 <Chip label={`Yeni müfredat: ${summary.curriculaCreated}`}/>
+                                <Chip label={`Müfredatsız program: ${summary.withoutCurriculum || 0}`}/>
                             </div>
                             {summary.errors && summary.errors.length > 0 && (
                                 <>
@@ -206,18 +226,29 @@ const StudentsPage = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {students.content.map(s => (
-                                    <TableRow key={s.id} hover>
-                                        <TableCell>{s.studentNo}</TableCell>
-                                        <TableCell>{s.firstName}</TableCell>
-                                        <TableCell>{s.lastName}</TableCell>
-                                        <TableCell>{s.program}</TableCell>
-                                        <TableCell>{s.entryYear}</TableCell>
-                                        <TableCell>{s.classLevel}</TableCell>
-                                        <TableCell>{s.curriculum ? `${s.curriculum.catalogName} ${s.curriculum.version}` : ""}</TableCell>
-                                        <TableCell>{s.academicStatus}</TableCell>
-                                    </TableRow>
-                                ))}
+                                {students.content.map(s => {
+                                    const progs = programsOf(s)
+                                    const multi = progs.length > 1
+                                    return progs.map((p, i) => (
+                                        <TableRow key={`${s.id}-${p.id != null ? p.id : i}`} hover
+                                                  className={i === 0 ? "student-first-row" : "student-extra-row"}>
+                                            {i === 0 && <TableCell rowSpan={progs.length}>{s.studentNo}</TableCell>}
+                                            {i === 0 && <TableCell rowSpan={progs.length}>{s.firstName}</TableCell>}
+                                            {i === 0 && <TableCell rowSpan={progs.length}>{s.lastName}</TableCell>}
+                                            <TableCell>
+                                                {p.program}
+                                                {TYPE_LABELS[p.programType] && (
+                                                    <Chip size="small" variant="outlined" className="program-chip"
+                                                          label={TYPE_LABELS[p.programType]}/>
+                                                )}
+                                            </TableCell>
+                                            {i === 0 && <TableCell rowSpan={progs.length}>{s.entryYear}</TableCell>}
+                                            <TableCell>{cellValue(p.classLevel, multi)}</TableCell>
+                                            <TableCell>{cellValue(curriculumLabel(p.curriculum), multi)}</TableCell>
+                                            <TableCell>{cellValue(p.academicStatus, multi)}</TableCell>
+                                        </TableRow>
+                                    ))
+                                })}
                                 {students.content.length === 0 && !loading && (
                                     <TableRow><TableCell colSpan={8} align="center">Kayıt bulunamadı</TableCell></TableRow>
                                 )}
