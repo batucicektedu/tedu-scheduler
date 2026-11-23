@@ -1,0 +1,48 @@
+.students-page {
+  min-height: 100vh;
+  background: #f4f6f8;
+  padding: 24px 12px 48px;
+
+  .students-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .section-card {
+    padding: 20px;
+  }
+
+  .import-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .import-summary {
+    margin-top: 16px;
+  }
+
+  .summary-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin: 12px 0;
+  }
+
+  .clickable-row {
+    cursor: pointer;
+  }
+}
