@@ -1,5 +1,5 @@
 const dev = {
-    BACKEND_URL : "http://localhost:8124/api"
+    BACKEND_URL : "/api"
 }
 
 const prod = {

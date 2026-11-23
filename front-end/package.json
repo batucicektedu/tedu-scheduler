@@ -50,5 +50,6 @@
     "axios": "^0.21.1",
     "prop-types": "^15.7.2",
     "react-use": "^17.3.1"
-  }
+  },
+  "proxy": "http://localhost:8124"
 }
