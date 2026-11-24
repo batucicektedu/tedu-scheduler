@@ -3,6 +3,7 @@ import CourseTable from "./components/CourseTable/CourseTable";
 import Timetable from "./components/Timetable/Timetable";
 import React, {useEffect, useState} from "react";
 import Footer from "./components/Footer/Footer";
+import PageButtons from "./components/PageNav/PageButtons";
 import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
 import {useLocalStorage} from "react-use";
 
@@ -86,6 +87,7 @@ const App = () => {
                     selectedSemester
                 }}/>
             </div>
+            <PageButtons/>
             <div id={"capture"}>
 
             </div>

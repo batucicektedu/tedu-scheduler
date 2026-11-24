@@ -3,7 +3,7 @@ import { Link as RouterLink, useLocation } from "react-router-dom";
 import { Link } from "@material-ui/core";
 import "./PageNav.scss";
 
-const PAGES = [
+export const PAGES = [
     { to: "/", label: "Haftalık Program" },
     { to: "/students", label: "Öğrenci Yönetimi" },
     { to: "/curricula", label: "Müfredatlar" },

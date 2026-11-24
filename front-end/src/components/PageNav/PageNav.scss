@@ -36,3 +36,30 @@
     align-items: flex-start;
   }
 }
+
+.page-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+
+  .page-button {
+    min-height: 44px;
+    padding: 8px 20px;
+    font-family: inherit;
+    font-weight: 600;
+    text-transform: none;
+    color: #1a56a0;
+    border-color: #1a56a0;
+
+    &:focus-visible {
+      outline: 2px solid #1a56a0;
+      outline-offset: 2px;
+    }
+  }
+
+  @media (max-width: 599px) {
+    flex-direction: column;
+  }
+}
